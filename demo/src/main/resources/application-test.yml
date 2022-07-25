@@ -1,0 +1,55 @@
+users:
+  - name: cc
+    age: 18
+  - name: dd
+    age: 19
+
+baseDir: c:\windows
+# 引用变量的 ${baseDir}
+# 转义字符，双引号就能转义
+tempDir: "${baseDir}\temp \n 2\t 1 3"
+
+#自定义
+servers:
+  # 多种书写方式ConfigurationProperties可以用,@Value不可以松散绑定
+  #  ipAddress: 127.0.0.1  # 驼峰
+  #  ipaddress: 127.0.0.1
+  #  ip_address: 127.0.0.1 # unline
+  #  ip-address: 127.0.0.1  # 烤肉串模式
+  #  IPADDRESS: 127.0.0.1
+  #  IP_ADDRESS: 127.0.0.1
+  #  IP_ADD-RE-SS: 127.0.0.1
+  ipAddress: 127.0.0.1
+  #  port: a 需要数据校验
+  port: 9091
+  name: cc
+  timeout: -1
+  serverTimeOut: 3
+  dataSize: 10MB
+
+dataSources:
+#  driverClassName: com.cj.driver1234
+#  #（0开头后包含0-7的值）被识别为八进制了，加双引号就不会被变成八进制
+#  password: 0127
+
+test:
+  prop: testValue2
+
+testcast:
+  book:
+    id: ${random.int}           # 随机整数
+    id2: ${random.int(10)}      # 10以内的整数
+    type: ${random.int!10,20!}  # 10-20的整数,!作为分隔符也可以当()
+#    type: ${random.int(10,20)}  # 10-20的整数
+    uuid: ${random.uuid}        # 随机uuid
+    name: ${random.value}       # 随机字符串，md5字符串，32位
+    publishTime: ${random.long} # 随机整数(long)
+
+token:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌密钥
+  secret: abcdefghijklmnopqrstuvwxyz
+  # 令牌有效期（默认30分钟）
+  expireTime: 30
+  JWT_KEY: znn

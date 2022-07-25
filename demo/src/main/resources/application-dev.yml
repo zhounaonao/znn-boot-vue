@@ -1,0 +1,70 @@
+server:
+  port: 8080
+
+spring:
+  # 资源信息
+  messages:
+    # 国际化资源文件路径
+    basename: i18n/messages
+
+  jackson:
+    date-format: yyyy-MM-dd
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+  # 发件箱配置
+  mail:
+    host: smtp.163.com
+    username: 13028902352@163.com
+    password: OZNDNOYUWJNLZNRY
+
+  #定时任务
+  task:
+    scheduling:
+      # 任务调度线程池大小 默认1
+      pool:
+        size: 1
+      # 线程前置名称
+      thread-name-prefix: spring_task
+      shutdown:
+        # 线程池关闭时等待所有任务完成
+        await-termination: false
+        # 调度线程关闭前最大等待时间，确保最后一定关闭
+        await-termination-period: 10s
+
+logging:
+  level:
+    com.znn: debug
+    root: info
+
+main:
+  # 名称
+  name: Znn
+  # 版本
+  version: 1.0.0
+  # 版权年份
+  copyrightYear: 2022
+  # 实例演示开关
+  demoEnabled: true
+  # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
+  profile: D:/znnFile/uploadPath
+  # 获取ip地址开关
+  addressEnabled: false
+  # 验证码类型 math 数组计算 char 字符验证
+  captchaType: math
+
+
+
+
+
+

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>悦听player</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #app {
+            width: 70%;
+            height: 500px;
+            margin-left: 15%;
+            margin-top: 50px;
+        }
+        #top {
+            width: 100%;
+            background-color: dodgerblue;
+            border-radius: 10px 10px 0 0;
+            height: 10%;
+
+        }
+        #banner {
+            float: left;
+            height: 100%;
+            width: 50%;
+        }
+        #banner span {
+            text-align: center;
+            float: left;
+            font-size: 22px;
+            font-family: "黑体";
+            color: #fff;
+            margin: 12px 0 0 10%;
+        }
+        #search {
+            float: right;
+            height: 100%;
+            width: 50%;
+        }
+
+        #top input {
+            height: 50%;
+            width: 70%;
+            margin: 10px 0 0 20%;
+            background-color: lightblue;
+            border-radius: 10px;
+            border: 0px;
+        }
+
+        #mid {
+            height: 80%;
+            width: 100%;
+            background-color: antiquewhite;
+        }
+
+        #left {
+            height: 100%;
+            width: 25%;
+            float: left;
+            /*background-color: chartreuse;*/
+
+        }
+
+        #left ul {
+            /*background-color: chartreuse;*/
+            padding: 0;
+            margin-top: 0;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 95%;
+        }
+        #left ul::-webkit-scrollbar {
+            display: none;
+        }
+
+        #left ul li {
+            font-size: 12px;
+            color: #333;
+            height: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            width: 580px;
+            padding-left: 30px;
+        }
+
+        #left ul li:nth-child(odd) {
+            background-color: rgba(240, 240, 240, 0.3);
+        }
+
+        #left ul li a {
+            margin-left: -10px;
+            display: block;
+            width: 17px;
+            height: 17px;
+            background-image: url("images/play.png");
+            background-size: 100%;
+            margin-right: 5px;
+            box-sizing: border-box;
+        }
+
+        #left ul li b {
+            font-weight: normal;
+            width: 122px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        #center {
+            height: 100%;
+            width: 50%;
+            float: left;
+            position:relative;
+        }
+
+        #center .radius {
+            border-radius: 50%;
+            background: url("images/disc.png") no-repeat;
+            width: 80%;
+            height: 255px;
+            margin: 20% 10%;
+            position:absolute;left:0;top:0;
+        }
+
+        #center .inRadius {
+            background: url("images/cover.png") no-repeat;
+            background-size: cover;
+            width: 50%;
+            height: 150px;
+            margin: 40% 27%;
+
+        }
+
+        #right {
+            height: 100%;
+            width: 25%;
+            float: left;
+        }
+
+        #bottom {
+            background-color: chartreuse;
+            height: 10%;
+            width: 100%;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .myaudio {
+            width: 100%;
+            height: 100%;
+            margin-top: 0px;
+            outline: none;
+            border-radius: 0 0 10px 10px;
+            background-color: #f1f3f4;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app" class="appClass">
+    <div id="top">
+        <div id="banner">
+            <span>听歌</span>
+        </div>
+        <div id="search">
+            <input type="text" v-model="search" @keyup.enter="searchSongs">
+        </div>
+    </div>
+    <div id="mid">
+        <div id="left">
+            <ul>
+                <li v-for="(item, index) in songs">
+                    <a href="javascript:;" @click="play(item.id)"></a>
+                    <b>{{ item.name }}</b>
+                    <span><i></i></span>
+                </li>
+            </ul>
+
+        </div>
+        <div id="center">
+            <div class="radius">
+
+            </div>
+            <div class="inRadius">
+
+            </div>
+        </div>
+        <div id="right">
+
+        </div>
+    </div>
+    <div id="bottom">
+        <audio :src="songUrl" controls="controls" autoplay="autoplay" loop="loop" class="myaudio">
+
+        </audio>
+    </div>
+
+
+</div>
+<script>
+
+    var app = new Vue({
+        el: "#app",
+        data: {
+            search: "",
+            songs: [
+                {name:"他不懂", id:"28059417"},
+                {name:"只要平凡", id:"574919767"}
+            ],
+            songUrl: "",
+        },
+        methods: {
+
+            searchSongs:function () {
+                let that = this;
+                axios.get("https://music.cyrilstudio.top/search?keywords="+this.search).then(
+                    function (response){
+                        console.log(response.data.result.songs);
+                        that.songs = response.data.result.songs
+                    },function (err){}
+                )
+            },
+            play: function (id) {
+                axios.get("https://music.cyrilstudio.top/song/url?id="+id).then(
+                    function (response){
+                        console.log(response.data.data[0]);
+                    },function (err){}
+                )
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

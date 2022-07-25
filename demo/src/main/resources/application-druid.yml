@@ -1,0 +1,48 @@
+# 数据源配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      url: jdbc:mysql://localhost:3306/ry-vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+      username: root
+      password: 123456
+      aop-patterns: com.znn.Admin.*  #监控SpringBean
+      filters: stat,wall  # 底层开启功能，stat（sql监控），wall（防火墙）
+      stat-view-servlet: # 配置监控页功能
+        enabled: true
+        login-username: znn
+        login-password: 123456
+        reset-enable: false
+      # 初始连接数
+      initialSize: 5
+      # 最小连接池数量
+      minIdle: 10
+      # 最大连接池数量
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置检测连接是否有效
+      validationQuery: SELECT 2 FROM DUAL
+
+  data:
+    mongodb:
+      uri: mongodb://localhost/springboot
+
+
+
+# 配置mybatis规则
+mybatis:
+  mapper-locations: classpath:mapping/base/**/*.xml
+  # 搜索指定包别名
+  typeAliasesPackage: com.znn.**.domain
+
+  #  config-location: classpath:mybatis/mybatis-config.xml
+  #  上面这个是mybatis的配置文件，我们可以使用configuration来进行相对应的配置，即mybatis-config.xml可以不写，也不指定路径
+  #  config-location 和 configuration不能同时有
+  configuration:
+    map-underscore-to-camel-case: true
+    # 标准日志开启
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    auto-mapping-behavior: full
+# 可以不写全局；配置文件，所有全局配置文件的配置都放在configuration配置项中即可

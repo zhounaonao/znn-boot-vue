@@ -1,0 +1,7 @@
+# Project exclude paths
+/common/target/
+/demo/target/
+/quartz/target/
+/rabbitmq-consumer/target/
+/rabbitmq-producer/target/
+/vue/node_modules/

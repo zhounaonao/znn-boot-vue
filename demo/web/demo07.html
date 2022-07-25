@@ -1,0 +1,49 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/demo07.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!--    <script type="text/javascript" src="js/demo07js.js"></script>-->
+</head>
+
+<body>
+<div id="div_container">
+    <div id="div_fruit_list">
+        <table id="tbl_fruit">
+            <tr>
+                <th>序号</th>
+                <th>名称</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+                <th>操作</th>
+            </tr >
+            <tr v-for="(item, index) in fruits">
+                <td>{{ index+1}}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.amount }}</td>
+                <td>{{item.price*item.amount}}</td>
+                <td @click="remove(index)"><img class="delImg" src="images/delete.png"></td>
+            </tr>
+            <tr>
+                <td>总计</td>
+                <td colspan="5">99</td>
+            </tr>
+
+        </table>
+    </div>
+    <div id="div_add_fruit_form">
+        <form v-model="form">
+            <input type="text" :value="form.name">
+            <input type="text" :value="form.price">
+            <input type="text" :value="form.amount">
+            <input @click="addFruit" type="button" value="提交">
+        </form>
+    </div>
+
+</div>
+</body>
+<script src="js/demo07vue.js"></script>
+</html>

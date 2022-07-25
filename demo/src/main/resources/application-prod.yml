@@ -1,0 +1,13 @@
+server:
+  port: 9091
+
+spring:
+  devtools:
+    restart:
+      # 设置热部署不可用
+      enabled: false
+
+  redis:
+    host: 192.168.32.129
+    port: 6379
+    database: 0
